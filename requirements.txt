@@ -1,0 +1,20 @@
+# index-tts requirements
+
+# pre
+# conda install -c conda-forge ffmpeg
+# pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# windows xtra
+# conda install -c conda-forge pynini==2.1.6
+# pip install WeTextProcessing --no-deps
+
+indextts # built from git libary
+
+# real program needs
+# data validation
+pydantic
+pyyaml
+
+# api part
+fastapi
+uvicorn

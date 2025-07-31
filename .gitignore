@@ -1,0 +1,8 @@
+# IDE
+.idea
+
+# dev files
+/config/*
+
+/tts_files/checkpoints/*
+/tts_files/reference_voices/*
