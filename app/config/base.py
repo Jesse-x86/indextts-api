@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import TypeVar
+from typing import TypeVar, ClassVar
 
 import yaml
 from pydantic import BaseModel, ValidationError
@@ -22,7 +22,7 @@ class BaseConfig(BaseModel):
     基础配置类，所有配置类都应该继承自这个类。
     """
 
-    configType = TypeVar("configType", bound='BaseConfig')
+    configType: ClassVar = TypeVar("configType", bound='BaseConfig')
     @staticmethod
     def load_and_validate_config(
             filename: str,

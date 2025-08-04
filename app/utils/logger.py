@@ -11,7 +11,11 @@ def setup_logger(config: AppConfig, logger: logging.Logger):
     _handlers_added = False
 
     # 设置 logger 的级别
-    logger.setLevel(min(logging._nameToLevel[_config.console_level.upper()], logging._nameToLevel[_config.file_level.upper()]))
+    logger.setLevel(
+        min(logging._nameToLevel[_config.console_level.upper()], logging._nameToLevel[_config.file_level.upper()])
+        if _config.file_level
+        else logging._nameToLevel[_config.console_level.upper()]
+    )
 
     formatter = logging.Formatter(_config.format)
 

@@ -1,6 +1,7 @@
 import os
 
 from fastapi import APIRouter, HTTPException, status
+from fastapi.params import Depends
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
@@ -20,7 +21,7 @@ class DownloadQueryParams(BaseModel):
 
 
 @router.get("")
-async def download_audio_file(params: DownloadQueryParams):
+async def download_audio_file(params: DownloadQueryParams = Depends()):
     relative_path = params.path
 
     if ".." in relative_path or relative_path.startswith('/'):
