@@ -3,11 +3,13 @@ import threading
 from pydantic import BaseModel, Field
 
 from app.config.base import BaseConfig
+from app.config.indextts import IndexTTSConfig
 from app.config.logger import LoggingConfig
 
 
 class ConfigModel(BaseModel):
     logging: LoggingConfig = Field(..., description="Logging config")
+    index_tts: IndexTTSConfig = Field(..., description="IndexTTS config")
 
 
 class AppConfig:
@@ -32,12 +34,18 @@ class AppConfig:
     @staticmethod
     def _initialize():
         from .logger import logging_config
+        from .indextts import tts_config as index_tts_config
         return ConfigModel(
-            logging=logging_config
+            logging=logging_config,
+            index_tts=index_tts_config,
         )
 
     @property
     def logging(self):
         return self._config.logging
+
+    @property
+    def index_tts(self):
+        return self._config.index_tts
 
 config = AppConfig()

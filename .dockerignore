@@ -1,0 +1,17 @@
+.git/
+.gitignore
+
+.idea/
+
+*.md
+
+config/
+tts_files/
+workspace/
+
+.dockerignore
+Dockerfile
+Dockerfile*
+
+.DS_Store
+Thumbs.db
