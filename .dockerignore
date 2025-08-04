@@ -12,6 +12,8 @@ workspace/
 .dockerignore
 Dockerfile
 Dockerfile*
+.env
+docker-compose.yml
 
 .DS_Store
 Thumbs.db

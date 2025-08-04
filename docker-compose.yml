@@ -1,0 +1,25 @@
+services:
+  # Define a service for your index-tts application
+  index_tts_service:
+    # Use the local Dockerfile to build the image
+    build: .
+
+    # Assign a name to the container for easy identification
+    container_name: ${CONTAINER_NAME}
+
+    # Map the host's port to the container's port, using the variable from the .env file
+    ports:
+      - "0.0.0.0:${API_PORT}:${API_PORT}"
+
+    # Mount volumes for persistent data
+    volumes:
+      - ${VOICES_HOST_PATH}:${VOICES_CONTAINER_PATH}
+      - ${OUTPUTS_HOST_PATH}:${OUTPUTS_CONTAINER_PATH}
+      - ${CHECKPOINTS_HOST_PATH}:${CHECKPOINTS_CONTAINER_PATH}
+
+    # Use the environment variables from the .env file
+    env_file:
+      - .env
+
+    # Restart the container automatically if it stops
+    restart: always
