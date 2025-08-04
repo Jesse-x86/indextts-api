@@ -33,7 +33,7 @@
 ### 1. 克隆仓库
 
 ```bash
-git clone <你的仓库地址>
+git clone github.com/Jesse-x86/indextts-api
 cd indextts-api
 ````
 
