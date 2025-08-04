@@ -3,6 +3,7 @@
 
 # dev files
 /config/*
+.env
 
 /tts_files/checkpoints/*
 /tts_files/reference_voices/*
