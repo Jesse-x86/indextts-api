@@ -1,8 +1,8 @@
 from typing import Optional
 from pydantic import Field
 
-from app.config import PROJECT_ROOT
-from app.config.base import BaseConfig
+from .base import PROJECT_ROOT
+from .base import BaseConfig
 
 import os
 

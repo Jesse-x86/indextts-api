@@ -19,5 +19,5 @@ echo "✅ Models are ready."
 
 # Step 2: Start the application with Uvicorn
 echo "🚀 Starting Uvicorn server..."
-uvicorn api.main:app --host "$HOST" --port "$PORT" --log-config-dict "{'version': 1, 'disable_existing_loggers': false}" --no-access-log
+uvicorn api.main:app --host "$HOST" --port "$PORT" --log-config "${PROJECT_ROOT}/uvicorn_logging_config.ini"
 echo "❌ Uvicorn server exited."

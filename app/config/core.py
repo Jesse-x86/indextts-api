@@ -2,9 +2,8 @@ import threading
 
 from pydantic import BaseModel, Field
 
-from app.config.base import BaseConfig
-from app.config.indextts import IndexTTSConfig
-from app.config.logger import LoggingConfig
+from .indextts import IndexTTSConfig
+from .logger import LoggingConfig
 
 
 class ConfigModel(BaseModel):

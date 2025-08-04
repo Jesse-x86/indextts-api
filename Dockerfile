@@ -14,6 +14,7 @@ ENV API_PORT="8198"
 RUN apt-get update && apt-get install -y \
     git \
     ffmpeg \
+    bc \
     wget \
     curl \
     bzip2 \
@@ -42,6 +43,10 @@ RUN pip install -e . --no-cache-dir
 
 # Copy your local project files into the new project root
 WORKDIR ${PROJECT_ROOT}
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
 COPY . ${PROJECT_ROOT}
 
 # Make your entrypoint script executable

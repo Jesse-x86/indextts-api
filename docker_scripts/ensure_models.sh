@@ -35,7 +35,13 @@ check_models_ready() {
             break
         fi
     done
-    return $all_exist
+
+    # 替换 return $all_exist
+    if $all_exist; then
+        return 0 # 成功
+    else
+        return 1 # 失败
+    fi
 }
 
 echo "Checking for existing IndexTTS models in $MODEL_CHECKPOINT_DIR..."
@@ -78,7 +84,7 @@ else
     # Try using huggingface-cli for download (recommended)
     if command -v huggingface-cli &> /dev/null; then
         echo "Using huggingface-cli to download models..."
-        huggingface-cli download IndexTeam/IndexTTS-1.5 \
+        hf download IndexTeam/IndexTTS-1.5 \
           "${REQUIRED_MODEL_FILES[@]}" \
           --local-dir "$MODEL_CHECKPOINT_DIR"
 

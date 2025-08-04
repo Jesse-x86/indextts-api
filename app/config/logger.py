@@ -1,9 +1,8 @@
 from typing import Optional
 from pydantic import Field
 
-from app.config.base import BaseConfig
+from .base import BaseConfig
 
-# TODO: add actual register to make logger config actually work
 class LoggingConfig(BaseConfig):
     """
     日志配置类
