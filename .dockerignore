@@ -2,7 +2,7 @@
 .gitignore
 
 .idea/
-
+licenses/
 *.md
 
 config/
