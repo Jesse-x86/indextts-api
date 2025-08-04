@@ -19,12 +19,12 @@
 
 * **项目许可证**：本项目遵循 **Apache-2.0 许可证**。你可以自由使用、修改和分发本项目代码，但需遵守该许可证的所有条款。
 
-* **模型许可证与使用限制**：本服务所使用的 **index-tts 模型**及其依赖，遵循 [INDEX_MODEL_LICENSE](https://github.com/index-tts/index-tts/blob/main/INDEX_MODEL_LICENSE) 协议。此协议的核心要点为：
-    * **非商业用途**：模型仅限**非商业用途**使用。任何商业行为（包括但不限于通过服务盈利、广告收入等）均需获得许可方书面授权。
-    * **告知义务**：使用方有义务在任何分发或使用场景中显著声明模型来自“bilibili Index-TTS”。
-    * **使用限制**：模型不得用于任何军事、非法、或生成不当内容的用途。
+* **依赖项目与模型许可证**：
+  * 本服务所依赖的 `index-tts` 项目代码遵循 **[Apache-2.0 许可证](https://github.com/index-tts/index-tts/blob/main/LICENSE)**。
+  * `index-tts` 模型遵循 **[INDEX_MODEL_LICENSE](https://github.com/index-tts/index-tts/blob/main/INDEX_MODEL_LICENSE)** 协议。此协议的核心要点为**非商业用途**、**告知义务**和**使用限制**。
+  * `index-tts` 原项目的 **[免责声明](https://github.com/index-tts/index-tts/blob/main/DISCLAIMER)** 同样适用于本项目的最终使用者。
 
-* **免责声明**：本项目的最终使用者应自行阅读并遵守 [index-tts 原项目的免责声明](https://github.com/index-tts/index-tts/blob/main/DISCLAIMER)。
+* **合规性声明**：为了确保合规性，`index-tts` 项目的许可证文件副本（包括 `LICENSE`, `DISCLAIMER`, `INDEX_MODEL_LICENSE`）已包含在你的项目仓库的 `licenses/index-tts/` 文件夹中。请注意，项目贡献者不保证这些副本的实时性，所有用户都应以原仓库中的最新文件为准。
 
 ---
 
