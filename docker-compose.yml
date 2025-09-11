@@ -16,6 +16,7 @@ services:
       - ${VOICES_HOST_PATH}:${VOICES_CONTAINER_PATH}
       - ${OUTPUTS_HOST_PATH}:${OUTPUTS_CONTAINER_PATH}
       - ${CHECKPOINTS_HOST_PATH}:${CHECKPOINTS_CONTAINER_PATH}
+      - ${CHECKPOINTS_V2_HOST_PATH}:${CHECKPOINTS_V2_CONTAINER_PATH}
 
     # Use the environment variables from the .env file
     env_file:
