@@ -24,12 +24,3 @@ services:
 
     # Restart the container automatically if it stops
     restart: always
-
-
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1  # 申请一个GPU
-              capabilities: [gpu]

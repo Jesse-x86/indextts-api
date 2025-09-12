@@ -8,7 +8,7 @@
 # conda install -c conda-forge pynini==2.1.6
 # pip install WeTextProcessing --no-deps
 
-indextts # built from git libary
+# indextts # built from git libary
 
 # real program needs
 # data validation
@@ -18,3 +18,5 @@ pyyaml
 # api part
 fastapi
 uvicorn
+
+torch
