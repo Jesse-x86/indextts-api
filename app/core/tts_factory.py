@@ -10,8 +10,8 @@ class TTSFactory:
     def get_tts(self) -> TTSWrapper:
         return self.get_tts_v2()
 
-    def get_tts_v1(self):
+    def get_tts_v1(self) -> TTSWrapper:
         return TTSWrapperV1(config=self.config)
 
-    def get_tts_v2(self):
+    def get_tts_v2(self) -> TTSWrapper:
         return TTSWrapperV2(config=self.config)

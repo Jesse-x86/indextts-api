@@ -31,7 +31,7 @@ async def generate_audio_v1_endpoint(request: GenerateRequestV1):
     根据提供的文本和说话人生成音频。
     """
     try:
-        result = await generate_speech(text=request.text, speaker=request.speaker)
+        result = await generate_speech(text=request.text, speaker=request.speaker, version="v1")
 
         if isinstance(request.text, str) and len(result) == 1:
             return result[0]
@@ -53,7 +53,7 @@ async def generate_audio_v2_endpoint(request: GenerateRequestV2):
     根据提供的文本和说话人生成音频。
     """
     try:
-        result = await generate_speech(text=request.text, speaker=request.speaker)
+        result = await generate_speech(text=request.text, speaker=request.speaker, version="v2")
 
         if isinstance(request.text, str) and len(result) == 1:
             return result[0]
