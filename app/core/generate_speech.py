@@ -3,6 +3,8 @@ import os.path
 import uuid
 from typing import Union
 
+import torch
+
 from app.core.tts_factory import TTSFactory
 import gc  # 导入 gc 模块用于垃圾回收
 
@@ -66,3 +68,5 @@ async def generate_speech(
         # 无论成功或失败，都在函数结束时强制进行内存回收
         del tts_instance
         gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
