@@ -14,7 +14,9 @@ app = FastAPI(
 )
 
 # 注册路由
-app.include_router(generate.router)
+app.include_router(generate.router_v1)
+app.include_router(generate.router_v2)
+app.include_router(generate.router_legacy)
 app.include_router(download.router)
 
 setup_app_logger(config=config)

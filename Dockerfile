@@ -46,19 +46,23 @@ RUN git clone https://github.com/index-tts/index-tts.git . && \
     git lfs pull
 
 # Install dependencies using uv
-RUN uv sync
+RUN uv sync --all-extras
+RUN pip install -e . --no-cache-dir
 
 # Copy your local project files into the new project root
 WORKDIR ${PROJECT_ROOT}
 
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN uv pip install -r requirements.txt --system
+# Install Hugging Face CLI
+RUN uv pip install huggingface_hub --system
 
 COPY . ${PROJECT_ROOT}
 
 # Make your entrypoint script executable
 RUN chmod +x ./docker_scripts/entry_point.sh
 RUN chmod +x ./docker_scripts/ensure_models.sh
+RUN chmod +x ./docker_scripts/ensure_models_v2.sh
 
 # Expose the port for your API
 EXPOSE ${API_PORT}

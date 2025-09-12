@@ -1,5 +1,11 @@
 import os.path
+import sys
 from abc import abstractmethod, ABC
+import torch
+
+# index_tts_path = os.getenv('INDEX_TTS_ROOT', '/app/index-tts')
+# if index_tts_path and index_tts_path not in sys.path:
+#     sys.path.append(index_tts_path)
 
 from indextts.infer import IndexTTS
 from indextts.infer_v2 import IndexTTS2
@@ -34,8 +40,9 @@ class TTSWrapperV2(TTSWrapper):
         self._config = config
         self._instance = IndexTTS2(model_dir=self._config.index_tts.model_v2_checkpoint_dir,
                                    cfg_path=os.path.join(self._config.index_tts.model_v2_checkpoint_dir, "config.yaml"),
-                                   is_fp16=False,
-                                   use_cuda_kernel=False)
+                                   use_fp16=False,
+                                   use_cuda_kernel=torch.cuda.is_available(),
+                                   use_deepspeed=False)
 
     def infer(self, actor: str, text: str, subfolder: str, filename: str):
         voice = os.path.join(self._config.index_tts.reference_voice_dir,
