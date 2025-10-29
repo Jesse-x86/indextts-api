@@ -55,12 +55,16 @@ API_PORT=8198
 VOICES_HOST_PATH=SOMEWHERE/tts_data/reference_voices
 OUTPUTS_HOST_PATH=SOMEWHERE/tts_data/outputs
 CHECKPOINTS_HOST_PATH=SOMEWHERE/tts_data/checkpoints
+CHECKPOINTS_V2_HOST_PATH=SOMEWHERE/tts_data/checkpoints2
 
-# 容器内部路径，一般无需修改
+# 容器内部的项目根目录
 CONTAINER_PROJECT_ROOT=/project
+
+# 其他容器内部路径，一般无需修改
 VOICES_CONTAINER_PATH=${CONTAINER_PROJECT_ROOT}/tts_files/reference_voices
 OUTPUTS_CONTAINER_PATH=${CONTAINER_PROJECT_ROOT}/tts_files/outputs
 CHECKPOINTS_CONTAINER_PATH=${CONTAINER_PROJECT_ROOT}/tts_files/checkpoints
+CHECKPOINTS_V2_CONTAINER_PATH=${CONTAINER_PROJECT_ROOT}/tts_files/checkpoints2
 ```
 
 ### 3\. 启动服务
@@ -78,32 +82,54 @@ docker-compose up --build -d
 
 -----
 
+
 ## 🎯 API 接口文档
 
 服务启动后，你可以在浏览器中访问 `http://localhost:8198/docs` 查看由 FastAPI 自动生成的交互式 API 文档。
 
-以下是两个核心接口的详细说明：
+---
 
-### 1\. 生成音频文件
+### 1. 生成音频文件 (`POST /generate`, `/v1/generate`, `/v2/generate`)
 
-  - **接口地址**：`POST /generate`
-  - **功能**：将文本转换为音频，返回音频文件在服务器上的**相对路径**，可用于后续下载或直接从挂载卷中获取。
-  - **请求体（JSON）**：
-      - `text`：`string` 或 `string[]`。要生成音频的文本。
-      - `speaker`：`string` 或 `string[]`。要使用的说话人 ID。
-          * 如果 `speaker` 是一个字符串，则所有文本都将使用同一个说话人。
-          * 如果 `speaker` 是一个列表，其长度必须与 `text` 列表长度一致，两者将一一对应。
-  - **成功响应**：
-      - 如果输入是单个文本，返回一个字符串，例如：`"2023-01-01/example.wav"`。
-      - 如果输入是文本列表，返回一个字符串列表，例如：`["path1.wav", "path2.wav"]`。
+| 接口 | 地址 | 功能说明 |
+| :--- | :--- | :--- |
+| **向后兼容** | `POST /generate` | 默认调用 **v2 版本**的逻辑，保持对旧客户端的兼容性。 |
+| **V1 版本** | `POST /v1/generate` | 使用 **v1 模型**进行文本到语音的转换。 |
+| **V2 版本** | `POST /v2/generate` | 使用 **v2 模型**进行文本到语音的转换（推荐）。 |
 
-### 2\. 下载音频文件
+#### 请求体（JSON Model: `GenerateRequest`）
 
-  - **接口地址**：`GET /download`
-  - **功能**：根据相对路径下载生成的音频文件。
-  - **查询参数**：
-      - `relative_path`：`string`。必填。由 `/generate` 接口返回的音频文件相对路径。
-  - **成功响应**：返回音频文件流（`application/octet-stream`）。
+| 字段 | 类型 | 描述 | 示例 |
+| :--- | :--- | :--- | :--- |
+| `text` | `string` 或 `string[]` | **必填**。要生成音频的文本，可以是一个字符串或字符串列表。 | `"Hello World"` / `["Text A", "Text B"]` |
+| `speaker` | `string` 或 `string[]` | **可选**。要使用的说话人 ID，默认为 `"default"`。 | `"speaker_id"` / `["s_id_1", "s_id_2"]` |
+
+> **注意：** 如果 `text` 和 `speaker` 都是列表，它们的长度必须一致，请求将按顺序一对一处理。
+
+#### 成功响应（Response）
+
+返回生成的音频文件在服务器上的**相对路径**，可用于后续下载或直接从挂载卷中获取。
+
+* **单个文本输入**：返回一个字符串。
+    * 示例：`"2023-01-01/example.wav"`
+* **列表文本输入**：返回一个字符串列表。
+    * 示例：`["path1.wav", "path2.wav"]`
+
+### 2. 下载音频文件 (`GET /download`)
+
+| 接口地址 | 功能 |
+| :--- | :--- |
+| `GET /download` | 根据 `/generate` 接口返回的相对路径下载对应的音频文件。 |
+
+#### 查询参数（Query Parameters）
+
+| 参数名 | 别名 | 类型 | 描述 |
+| :--- | :--- | :--- | :--- |
+| `relative_path` | `path` | `string` | **必填**。由生成接口 (`/generate`) 返回的音频文件相对路径。 |
+
+#### 成功响应
+
+返回音频文件的原始数据流 (`application/octet-stream`)，浏览器或客户端会直接开始下载。
 
 -----
 
